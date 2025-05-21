@@ -1,0 +1,23 @@
+{
+  "name": "Repeat Store",
+  "short_name": "Repeat",
+  "description": "متجر لشحن الألعاب الإلكترونية",
+  "lang": "ar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/r-s.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/og-image.jpg",
+      "sizes": "512x512",
+      "type": "image/jpg"
+    }
+  ]
+}

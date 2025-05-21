@@ -1,0 +1,13 @@
+@keyframes starfield {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 500px 500px; /* خليه أكبر عشان الحركة تكون أوضح */
+    }
+  }
+  
+  .animate-starfield {
+    animation: starfield 120s linear infinite;
+  }
+  

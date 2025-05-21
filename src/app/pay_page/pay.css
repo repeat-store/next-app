@@ -1,0 +1,214 @@
+.master-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    gap: 6px;
+    margin: auto;
+  }
+  
+  .card {
+    /* // background: #FFFFFF; */
+  }
+  
+  .title {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    /* // border-bottom: 2px solid #efeff3; */
+    font-weight: 700;
+    font-size: 18px;
+    color: darkcyan;
+    margin-right: 20px;
+  }
+  
+  .cart {
+    border-radius: 19px 19px 7px 7px;
+  }
+  
+  .cart .products {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .cart .products .product {
+    display: grid;
+      grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  
+  .cart .products .product img {
+    border-radius: 20px;
+  }
+  
+  .cart .products .product .details {
+    font-size: 16px;
+  }
+  
+  .cart .products .product .details .subDetails{
+      display: grid;
+      grid-template-columns: auto 1fr;
+  /* //   justify-items: center; */
+  }
+  
+  .cart .products .product .details .subDetails .right-col{
+    font-weight: 700;
+  /* //   margin: auto; */
+    
+  }
+  
+  .cart .products .product .details .subDetails .left-col{
+    margin: 0px 10px 0;
+  /* //   padding: 0 2px ; */
+  /* //   background-color: #e7e7e7; */
+      color : gray;
+      width : fit-content;
+  }
+  
+  .results {
+      display: grid;
+      grid-template-columns: auto 1fr;
+  
+  }
+  
+  .results .first {
+      margin-top: 10px;
+      font-weight: 700;
+  }
+  
+  
+  .results .second {
+      /* // background-color: #e9e9e9; */
+      border-radius: 10px;
+      width : fit-content;
+      padding: 0 7px;
+      margin: 10px 20px 0;
+  }
+  
+  
+  .cart .products .product span {
+    font-size: 22px;
+    font-weight: 700;
+    /* // color: #47484b; */
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  
+   
+  
+  .card .small {
+    font-size: 14px;
+    margin: 0 0 auto auto;
+  }
+  
+  .coupons {
+    border-radius: 7px;
+  }
+  
+  .coupons form {
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  
+  
+  .checkout {
+    border-radius: 9px 9px 19px 19px;
+  }
+  
+  .checkout .details {
+    padding: 10px;
+  }
+  
+  
+  .checkout--footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px 10px 20px;
+    /* // background-color: #efeff3; */
+  
+  }
+  
+  .price {
+    font-size: 24px;
+    /* // color: #2B2B2F; */
+    font-weight: 900;
+  }
+  
+  .checkout-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 36px;
+    background: linear-gradient(180deg, #4480FF 0%, #115DFC 50%, #0550ED 100%);
+    border-radius: 7px;
+    border: 0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+  }
+   
+    .special-card {
+     width: 100%;
+     padding: 20px;
+     margin: 10px;
+     height: 120px;
+     border-radius: 20px;
+      /* background: #e0e0e0;
+      box-shadow: 20px 20px 60px #bebebe,
+                    -20px -20px 60px #ffffff; */
+  }
+  
+      /* ////////////copy */
+    
+     .Btn {
+      width: 60px;
+      height: 22px;
+      background-color: rgb(65, 64, 64);
+      border: none;
+      box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.342);
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      position: relative;
+      overflow: hidden;
+      transition-duration: .5s;
+    }
+  
+    .text {
+      color: rgb(10 235 223);
+      font-weight: 800;
+      letter-spacing: 1.1px;
+      z-index: 2;
+    }
+  
+    .svgIcon {
+      z-index: 2;
+    }
+  
+    .svgIcon path {
+      fill: rgb(10 235 223);
+    }
+  
+  
+    .effect {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background-color: rgb(184, 236, 104);
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0;
+      transition-duration: .5s;
+  }
