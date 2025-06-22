@@ -18,7 +18,9 @@ const refreshToken = async () => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to refresh token');
+            // التوكن غير صالح → تحويل لصفحة تسجيل الدخول
+            window.location.href = '/auth/login';
+            return null;
         }
 
         const data = await response.json();
@@ -29,6 +31,8 @@ const refreshToken = async () => {
         return data.access_token;
     } catch (error) {
         console.error('Error refreshing token', error);
+        // أي خطأ آخر → إعادة التوجيه أيضًا
+        window.location.href = '/auth/login';
         return null;
     }
 };

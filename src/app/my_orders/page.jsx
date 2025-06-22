@@ -36,6 +36,7 @@ export default function OrdersPage() {
       try {
         const data = await fetchWithRefresh(`${API_BASE_URL}/api/my_orders`);
         setOrders(data);
+        console.log(data)
       } catch (err) {
         setError("فشل تحميل الطلبات");
       } finally {
@@ -94,7 +95,7 @@ export default function OrdersPage() {
         <>
           <div className="mb-6 flex items-center justify-between flex-wrap gap-4">
             <div className="text-lg font-medium text-zinc-800 dark:text-zinc-200">
-              عدد الطلبات : {filteredOrders.length} <br /> الإجمالي بالجنيه : {total} جنيه
+              عدد الطلبات : {filteredOrders.length} <br /> الإجمالي بالجنيه : {total.toLocaleString('en')} جنيه
             </div>
 
             <div className="flex gap-2">

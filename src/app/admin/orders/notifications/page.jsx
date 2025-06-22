@@ -4,11 +4,11 @@ import Cookies from "js-cookie";
 import { RefreshCcw, Copy } from "lucide-react";
 import { API_BASE_URL } from "../../../../lib/domen";
 
-
 export default function OrderNotificationsPage() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [codeInputs, setCodeInputs] = useState({});
 
   const fetchNotifications = async () => {
     const token = Cookies.get("admin_token");
@@ -29,7 +29,8 @@ export default function OrderNotificationsPage() {
     }
   };
 
-  const updateStatus = async (orderId, status) => {
+  const updateStatus = async (orderId, status, user_gameID) => {
+    if (!user_gameID) return alert("لا يمكن قبول الطلب بدون معرف اللاعب");
     if (!confirm(`هل أنت متأكد من ${status === "approved" ? "قبول" : "رفض"} الطلب؟`)) return;
 
     const token = Cookies.get("admin_token");
@@ -67,6 +68,47 @@ export default function OrderNotificationsPage() {
     setTimeout(() => toast.remove(), 3000);
   };
 
+  const sendCodeToEmail = async (orderId, email, code) => {
+    if (!code) return alert("الرجاء إدخال الكود أولاً");
+
+    const token = Cookies.get("admin_token");
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/admin/orders/${orderId}/send-code`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ code, email }),
+      });
+      if (!res.ok) throw new Error("فشل إرسال الكود إلى البريد");
+      showToast("تم إرسال الكود إلى البريد الإلكتروني بنجاح");
+    } catch {
+      showToast("فشل إرسال البريد الإلكتروني");
+    }
+  };
+
+  const storeGameId = async (orderId, code) => {
+    if (!code) return alert("الرجاء إدخال الكود أولاً");
+
+    const token = Cookies.get("admin_token");
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/admin/orders/${orderId}/store-code`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ code }),
+      });
+      if (!res.ok) throw new Error("فشل تخزين معرف اللاعب");
+      showToast("تم تخزين معرف اللاعب بنجاح");
+      fetchNotifications();
+    } catch {
+      showToast("حدث خطأ أثناء التخزين");
+    }
+  };
+
   useEffect(() => {
     fetchNotifications();
   }, []);
@@ -98,7 +140,7 @@ export default function OrderNotificationsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700">
               <p><strong>رقم الطلب:</strong> {n.public_order_id}</p>
               <p><strong>اسم المستخدم:</strong> {n.user_name}</p>
-              <p><strong>إيميل المستخدم:</strong> {n.user_email}</p>
+              <p><strong>إيميل المستخدم:</strong> {n.email}</p>
               <p className="flex items-center gap-2">
                 <strong>معرف اللعبة:</strong> {n.user_gameID || "-"}
                 {n.user_gameID && (
@@ -107,6 +149,15 @@ export default function OrderNotificationsPage() {
                   </button>
                 )}
               </p>
+              <p className="flex items-center gap-2">
+                <strong>معرف السيرفر:</strong> {n.server_id || "-"}
+                {n.user_gameID && (
+                  <button onClick={() => copyToClipboard(n.server_id)}>
+                    <Copy className="w-4 h-4 text-blue-500" />
+                  </button>
+                )}
+              </p>
+              
               <p><strong>اللعبة:</strong> {n.game_name}</p>
               <p><strong>المنتج:</strong> {n.product_name}</p>
               <p><strong>الكمية:</strong> {n.quantity}</p>
@@ -118,13 +169,52 @@ export default function OrderNotificationsPage() {
                 </button>
               </p>
               <p><strong>الحالة:</strong> {n.status}</p>
+              <p><strong>الايميل:</strong> {n.email}</p>
               <p><strong>تاريخ الإنشاء:</strong> {new Date(n.created_at).toLocaleString()}</p>
             </div>
+
+            {!n.user_gameID && (
+              <div className="mt-4 space-y-2">
+                <input
+                  type="text"
+                  placeholder="ادخل كود اللاعب"
+                  value={codeInputs[n.id] || ""}
+                  onChange={(e) =>
+                    setCodeInputs({ ...codeInputs, [n.id]: e.target.value })
+                  }
+                  className="border rounded p-2 w-full"
+                />
+                <div className="flex gap-2 flex-wrap">
+                  {n.email && (
+                    <button
+                      onClick={() => sendCodeToEmail(n.id, n.email, codeInputs[n.id])}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                    >
+                      إرسال عبر الإيميل
+                    </button>
+                  )}
+                  <a
+                    href={`https://wa.me/${n.whatsapp_number}?text=${encodeURIComponent(`هذا هو كودك: ${codeInputs[n.id] || ""}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
+                  >
+                    إرسال عبر واتساب
+                  </a>
+                  <button
+                    onClick={() => storeGameId(n.id, codeInputs[n.id])}
+                    className="bg-gray-800 hover:bg-black text-white px-4 py-2 rounded"
+                  >
+                    تخزين الكود
+                  </button>
+                </div>
+              </div>
+            )}
 
             {n.img && (
               <div className="mt-4 space-y-2">
                 <img
-                  src={`${API_BASE_URL}/storage/${n.img}`}
+                  src={`${n.img}`}
                   alt="صورة التحويل"
                   className="w-48 h-auto hover:scale-105 transform transition rounded border"
                 />
@@ -139,27 +229,38 @@ export default function OrderNotificationsPage() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <button
-                onClick={() => updateStatus(n.id, "approved")}
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition"
+                onClick={() => updateStatus(n.id, "approved", n.user_gameID)}
+                className={`${
+                  !n.user_gameID ? "bg-gray-300 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"
+                } text-white px-4 py-2 rounded transition`}
+                disabled={!n.user_gameID}
               >
                 قبول
               </button>
               <button
-                onClick={() => updateStatus(n.id, "rejected")}
+                onClick={() => updateStatus(n.id, "rejected", true)}
                 className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition"
               >
                 رفض
               </button>
+
               <a
                 href={`https://wa.me/${n.whatsapp_number}?text=${encodeURIComponent(
-                  `مرحباً ${n.user_name}\nتم شحن طلبك بنجاح.\nرقم الطلب: ${n.public_order_id}\nاللعبة: ${n.game_name}\nالمنتج: ${n.product_name}\nالكمية: ${n.quantity}\nالسعر: ${n.price} SDG\nشكرًا لاستخدامك ريبيت ستور ❤️`
+                  `👤 ${n.user_name}، تم تنفيذ طلبك بنجاح ✅\n\n` +
+                  `📦 رقم الطلب: ${n.public_order_id}\n` +
+                  `🎮 اللعبة: ${n.game_name}\n` +
+                  `🧾 المنتج: ${n.product_name}\n` +
+                  `🔢 الكمية: ${n.quantity}\n` +
+                  `💵 السعر: ${n.price} SDG\n` +
+                  (n.user_gameID ? `🆔 معرف اللعبة: ${n.user_gameID}\n` : "") 
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition"
+                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
               >
-                واتساب
+                إرسال تم التنفيذ عبر واتساب
               </a>
+
             </div>
 
             {selectedImage && (

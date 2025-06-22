@@ -164,6 +164,7 @@ export default function AllOrdersPage() {
               <th className="p-2">الإيميل</th>
               <th className="p-2">المنتج</th>
               <th className="p-2">معرف اللاعب</th>
+              <th className="p-2">معرف السيرفر</th>
               <th className="p-2">المجموع</th>
               <th className="p-2">الربح</th>
               <th className="p-2">واتساب</th>
@@ -179,6 +180,7 @@ export default function AllOrdersPage() {
                 <td className="p-2">{order.user?.email ?? ''}</td>
                 <td className="p-2">{order.product?.name ?? ''}</td>
                 <td className="p-2">{order?.user_gameID ?? ''}</td>
+                <td className="p-2">{order?.server_id ?? ''}</td>
                 <td className="p-2">{(parseFloat(order.price*order.quantity)).toLocaleString()} </td>
                 <td className="p-2">{(parseFloat(order.profits)).toLocaleString()} </td>
                 <td className="p-2">{order.whatsapp_number}</td>
@@ -193,7 +195,7 @@ export default function AllOrdersPage() {
                   ) : 'لا توجد'}
                   {showImages[index] && order.img && (
                     <div className="mt-2">
-                      <img src={`${API_BASE_URL}/storage/${order.img}`} alt="صورة التحويل" className="max-w-xs rounded shadow" />
+                      <img src={`${order.img}`} alt="صورة التحويل" className="max-w-xs rounded shadow" />
                     </div>
                   )}
                 </td>

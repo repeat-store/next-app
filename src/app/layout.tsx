@@ -20,13 +20,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'متجر ريبيت استور',
   description:
-    'متجر ريبيت استور: متجر سوداني يوفر خدمة شحن مختلف الالعاب الالكترونية باسعار منافسة وكمان بنوفر رومات ومسابقات يمكن من خلالها الفوز بشدات مجانا',
+    'متجر ريبيت استور: متجر سوداني يوفر خدمة شحن مختلف الالعاب الالكترونية والبطاقات الرقمية باسعار منافسة وكمان بنوفر رومات ومسابقات يمكن من خلالها الفوز بشدات مجانا',
   metadataBase: new URL('https://repeat-store.com'),
 
   openGraph: {
     title: 'متجر ريبيت استور',
     description:
-      'متجر ريبيت استور: متجر سوداني يوفر خدمة شحن مختلف الالعاب الالكترونية باسعار منافسة وكمان بنوفر رومات ومسابقات يمكن من خلالها الفوز بشدات مجانا',
+      'متجر ريبيت استور: متجر سوداني يوفر خدمة شحن مختلف الالعاب الالكترونية والبطاقات الرقمية باسعار منافسة وكمان بنوفر رومات ومسابقات يمكن من خلالها الفوز بشدات مجانا',
     url: 'https://repeat-store.com',
     siteName: 'Repeat Store',
     images: [
@@ -62,6 +62,21 @@ export default function RootLayout({
   return (
     <html lang="ar">
       <head>
+
+        {/* ✅ Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-5XBXT12TLK"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-5XBXT12TLK');
+            `,
+          }}
+        />
+
+
         {/* ✅ Tags خاصة بالـ PWA */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />

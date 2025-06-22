@@ -8,7 +8,6 @@ import './pay.css';
 import { API_BASE_URL } from '../../lib/domen';
 
 const CompletePay = () => {
-  // بدون أنواع TypeScript عشان الملف يتنفذ كـ JS
   const [checkoutData, setCheckoutData] = useState(null);
   const [file, setFile] = useState(null);
   const [copied, setCopied] = useState(false);
@@ -54,11 +53,12 @@ const CompletePay = () => {
     formData.append('whatsapp_number', checkoutData.userInfo.whatsapp);
 
     // ندمج ID + Server ID
-    let finalID = checkoutData.userInfo.id;
-    if (checkoutData.nameEN === 'mobile-legends' && checkoutData.userInfo.server) {
-      finalID = `${checkoutData.userInfo.id} (${checkoutData.userInfo.server})`;
-    }
-    formData.append('user_gameID', finalID);
+    // let finalID = checkoutData.userInfo.id;
+    // if (checkoutData.nameEN === 'mobile-legends' && checkoutData.userInfo.server) {
+    //   finalID = `${checkoutData.userInfo.id} (${checkoutData.userInfo.server})`;
+    // }
+    formData.append('user_gameID', checkoutData.userInfo.id);
+    formData.append('server_id', checkoutData.userInfo.server);
     formData.append('img', file);
 
     try {
@@ -74,6 +74,16 @@ const CompletePay = () => {
       setIsLoading(false); // <-- نهاية التحميل
     }
   };
+
+  const getBankNameArabic = (key) => {
+    const bankMap = {
+      bankak: "بنكك",
+      mycashe: "ماي كاشي",
+      forey: "فوري",
+    };
+    return bankMap[key?.toLowerCase()] || key; // لو الاسم غير معروف، رجّع الأصل
+  };
+
 
   return (
     <div className="p-4 bg-white dark:bg-gray-950" dir="rtl">
@@ -91,13 +101,13 @@ const CompletePay = () => {
                   <p className="right-col dark:text-gray-300">فئة المنتج</p>
                   <p className="left-col">{checkoutData.product.label}</p>
                   <p className="right-col dark:text-gray-300">السعر</p>
-                  <p className="left-col">{checkoutData.product.price} جنيه</p>
+                  <p className="left-col">{checkoutData.product.price.toLocaleString('en')} جنيه</p>
                   <p className="right-col dark:text-gray-300">الكمية</p>
                   <p className="left-col">{checkoutData.product.quantity}</p>
                   <hr className="mb-2 dark:text-gray-300" />
                   <hr className="mb-2 dark:text-gray-300" />
                   <p className="right-col dark:text-gray-300">الإجمالي</p>
-                  <p className="left-col">{checkoutData.product.total} جنيه</p>
+                  <p className="left-col">{checkoutData.product.total.toLocaleString('en')} جنيه</p>
                 </div>
               </div>
             </div>
@@ -130,7 +140,7 @@ const CompletePay = () => {
             <p className="text-xm dark:text-gray-200">يرجى تحويل المبلغ المطلوب إلى الحساب التالي ثم رفع إشعار التحويل</p>
             <div className="special-card bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-[10px_10px_60px_#bebebe,-10px_-10px_60px_#ffffff] dark:shadow-[20px_20px_60px_#0a0a0a,-20px_-20px_60px_#2a2a2a]">
               <ul className="mr-4 list-inside dark:text-gray-100">
-                <li>البنك : {checkoutData.response.bank_name}</li>
+                <li>البنك : {getBankNameArabic(checkoutData.response.bank_name)}</li>
                 <li className="flex items-center gap-1 relative group">
                   <p className="ml-4">رقم الحساب : {checkoutData.response.account_number}</p>
                   <button onClick={handleCopy} className="Btn relative">
@@ -154,7 +164,7 @@ const CompletePay = () => {
         {/* إرسال الطلب */}
         <div className="checkout--footer bg-gray-300 dark:bg-gray-800 rounded-2xl">
           <button className="checkout-btn" onClick={postOrder} disabled={isLoading}>ارسال الطلب</button>
-          <label className="price dark:text-gray-50">{checkoutData.product.total}<sup className="text-xl ">ج</sup></label>
+          <label className="price dark:text-gray-50">{checkoutData.product.total.toLocaleString('en')}<sup className="text-xl ">ج</sup></label>
           {isLoading ? (
             <span className="flex items-center justify-center gap-2">
               <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">

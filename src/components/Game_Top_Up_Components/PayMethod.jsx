@@ -7,11 +7,11 @@ const PayMethod = ({ onSelect, selected }) => {
   };
 
   return (
-    <div className="mt-4 flex justify-around items-center text-center select-none px-2">
+    <div className="mt-4 flex justify-between items-center text-center select-none px-2">
       {[
-        { name: 'bankak', label: 'بنكك', img: '/images/bank/bankak.jpg' },
+        { name: 'bankak', label: 'بنكك', img: '/images/bank/bankak.png' },
         { name: 'mycashey', label: 'ماي كاشي', img: '/images/bank/Mycashey.png' },
-        // { name: 'forey', label: 'فوري', img: '/images/forey.jpg' },
+        { name: 'forey', label: 'فوري', img: '/images/bank/forey.png' },
       ].map((method) => (
         <label key={method.name} className="relative cursor-pointer">
           <input
@@ -28,7 +28,7 @@ const PayMethod = ({ onSelect, selected }) => {
               <img
                 src={method.img}
                 alt={method.label}
-                className="rounded-full w-full h-full object-cover"
+                className="rounded-lg w-full h-full object-cover"
               />
             </span>
           </span>

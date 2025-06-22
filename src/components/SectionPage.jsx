@@ -76,7 +76,7 @@ export default function SectionPage({ name }) {
                 {/* </h2> */}
                 <h2 className="text-gray-600 dark:text-gray-300  " dir='rtl'>{product.value}</h2>
                 <p className="text-green-600 dark:text-green-400 font-semibold mb-3" dir='ltr'>
-                  السعر: {product.price} جنيه
+                  السعر: {product.price.toLocaleString('en-US')} جنيه
                 </p>
               </div>
               <Link

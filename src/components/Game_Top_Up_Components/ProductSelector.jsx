@@ -97,7 +97,7 @@ export default function ProductSelector({ products, onSelect, selected }) {
                     <div className="flex-1 text-right dark:text-gray-50" dir='ltr'>
                       {option.tickets > 0 ? `🎟️${option.tickets} + ${option.label}` : option.label}
                     </div>
-                    <div className="text-gray-500 dark:text-gray-400">{option.price} جنيه</div>
+                    <div className="text-gray-500 dark:text-gray-400">{option.price.toLocaleString('en-US')} جنيه</div>
                   </label>
                 </div>
               ))}
@@ -114,9 +114,9 @@ export default function ProductSelector({ products, onSelect, selected }) {
               {selected.tickets > 0 ? ` 🎟️${selected.tickets} + ${selected.label}` : ` ${selected.label}`}
             </strong>
           </p>
-          <p>السعر : <strong>{selected.price} جنيه</strong></p>
+          <p>السعر : <strong>{selected.price.toLocaleString('en-US')} جنيه</strong></p>
           <QuantityCounter value={quantity} onChange={handleQuantityChange} />
-          <p className="mt-2">الإجمالي : <strong>{selected.price * quantity} جنيه</strong></p>
+          <p className="mt-2">الإجمالي : <strong>{(selected.price * quantity).toLocaleString('en-US')} جنيه</strong></p>
         </div>
       )}
     </div>

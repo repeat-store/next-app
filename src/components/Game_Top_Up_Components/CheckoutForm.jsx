@@ -7,8 +7,8 @@ import PayMethod from './PayMethod'
 import Input from './InputId'
 import { useCheckout } from './CheckoutContext'
 import { useRouter } from 'next/navigation'
-import Cookies from 'js-cookie'
 import postWithRefresh from '../../lib/postWithRefresh'
+import Cookies from 'js-cookie'
 import AuthSection from '../AuthSection'
 import { API_BASE_URL } from '../../lib/domen'
 
@@ -54,7 +54,8 @@ export default function CheckoutForm({ products, nam, namEN}) {
       !userInfo?.id || 
       !userInfo?.whatsapp || 
       !method || 
-      (nameEN === "mobile-legends" && !userInfo?.server)
+      (nameEN === "mobile-legends" && !userInfo?.server) ||
+      (nameEN === "genshin-impact" && !userInfo?.server)
     ) {
       alert("الرجاء تعبئة جميع الحقول المطلوبة.")
       return;

@@ -53,7 +53,7 @@ export default function Header() {
     }`;
 
   return (
-    <header className="flex fixed rounded-b-2xl items-center justify-between px-4 py-4 bg-gray-100 dark:bg-gray-950 shadow-md w-full top-0 right-0 z-10">
+    <header className="flex fixed rounded-b-2xl items-center justify-between px-4 py-4 bg-gray-100 dark:bg-gray-950 shadow-md w-full top-0 right-0 z-30">
       <div>
         <Switch/>
       </div>

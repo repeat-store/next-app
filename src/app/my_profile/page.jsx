@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import React, { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import fetchWithRefresh from "@/lib/fetchWithRefrech";
 import {
   LogOut,
   Ticket,
@@ -25,35 +26,38 @@ const ProfileCard = () => {
     tickets: 0,
     tournaments: 0,
     wins: 0,
+    image: ""
   });
 
   // const fileInputRef = useRef(null);
   const router = useRouter();
 
   useEffect(() => {
-    const token = Cookies.get("access_token");
+    const token = Cookies.get("refresh_token");
     if (!token) return;
 
     setIsAuthenticated(true);
 
     (async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/profile`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
+        const data = await fetchWithRefresh(`${API_BASE_URL}/api/profile`);
+
         setProfile({
           name: data.name || "",
-          joinedAt: new Date(data.joinedAt).toLocaleDateString("ar-SA", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          }),
+          joinedAt: data.joinedAt
+            ? new Date(data.joinedAt).toLocaleDateString("en-SA", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+              })
+            : "تاريخ غير معروف",
           tickets: data.tickets || 0,
           tournaments: data.tournaments || 0,
           wins: data.wins || 0,
+          image: data.image || "",
         });
-      } catch {
+      } catch (error) {
+        console.error("Error fetching profile:", error);
         setIsAuthenticated(false);
       }
     })();
@@ -174,33 +178,30 @@ const ProfileCard = () => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-white to-gray-100 dark:from-zinc-800 dark:to-zinc-900"
+      className="min-h-screen flex items-center justify-center p-4 mt-20 bg-gradient-to-br from-white to-gray-100 dark:from-zinc-800 dark:to-zinc-900"
     >
       <div className="max-w-md w-full rounded-3xl shadow-2xl overflow-hidden bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700">
         {/* Header */}
         <div className="relative h-32 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-          <div className="absolute inset-0 bg-[url('/images/back.jpg')] bg-cover opacity-20" />
+          {/* <div className="absolute inset-0 bg-[url('/images/back.jpg')] bg-cover opacity-20" /> */}
         </div>
 
-        {/* Avatar */}
-        <div className="-mt-16 flex justify-center relative">
-          <div className="relative w-32 h-32 rounded-full ring-4 ring-white dark:ring-zinc-900 bg-gradient-to-br from-pink-400 to-purple-600 shadow-lg flex items-center justify-center text-white text-4xl font-bold">
-            {getInitials(profile.name)}
-            {/* <div
-              className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white dark:bg-zinc-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-zinc-600 cursor-pointer transition"
-              onClick={handleUploadClick}
-            >
-              <ImageIcon className="w-5 h-5 text-gray-800 dark:text-white" />
-            </div> */}
-          </div>
-          {/* <input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            className="hidden"
-            onChange={handleFileChange}
-          /> */}
+       <div className="-mt-16 flex justify-center relative">
+        <div className="relative w-32 h-32 rounded-full ring-4 ring-white dark:ring-zinc-900 bg-gradient-to-br from-pink-400 to-purple-600 shadow-lg overflow-hidden">
+          {profile.image ? (
+            <img
+              src={profile.image}
+              alt="avatar"
+              className="w-full h-full object-cover rounded-full"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-white text-4xl font-bold">
+              {getInitials(profile.name)}
+            </div>
+          )}
         </div>
+      </div>
+
 
         {/* Info */}
         <div dir="rtl" className="text-center p-6 space-y-4">
@@ -208,7 +209,7 @@ const ProfileCard = () => {
             {profile.name}
           </h2>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-14">
-            عضو منذ {profile.joinedAt}
+             عضو منذ {profile.joinedAt}
           </p>
 
           {/* Stats */}

@@ -1,65 +1,84 @@
-"use client";
+'use client';
 import React from 'react';
 
 const Input = ({ details, onChange, name }) => {
+  const inputClass =
+    'px-4 py-3 text-sm rounded-2xl border border-zinc-300 dark:border-zinc-600 dark:bg-zinc-800 dark:text-white bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 w-full';
+
+  const labelClass =
+    'text-sm font-semibold mb-1 ml-2 text-zinc-800 dark:text-zinc-100';
+
+  const wrapperClass =
+    'flex flex-col gap-1 mb-5  w-full max-w-xs mx-auto';
+
   return (
-    <div className="space-y-5">
-      {/* حقل ID */}
-      <div className="flex flex-col min-w-[240px] mb-5 m-auto">
-        <label
-          htmlFor="id"
-          className="text-[0.95rem] font-bold relative top-2 bg-gray-50 dark:bg-transparent px-1 ml-2 w-fit dark:text-white"
-        >
-          معرف ال Id <span className='text-red-600 text-xl'>*</span>
-        </label>
-        <input 
-          name="id"
-          type="text"
-          placeholder="ادخل ال ID الخاص بالاعب"
-          value={details?.id || ''}
-          onChange={(e) => onChange({ ...details, id: e.target.value })}
-          className="px-3 py-[11px] text-sm border-2 border-black rounded  dark:bg-zinc-700 dark:text-white w-[240px] focus:outline-none"
-        />
-      </div>
-      
-        {/* حقل سيرفر ID إذا كان اسم اللعبة mobile-legnds */}
-        {name === 'mobile-legends' && (
-          <div className="flex flex-col min-w-[240px] mb-5 m-auto">
-            <label
-              htmlFor="server"
-              className="text-[0.95rem] font-bold relative top-2 bg-gray-50 dark:bg-transparent px-1 ml-2 w-fit dark:text-white"
-            >
-              سيرفر ID <span className='text-red-600 text-xl'>*</span>
+    <div className="space-y-4 mt-4">
+        {/* قائمة اختيار السيرفر إذا كانت اللعبة genshin-impact */}
+        {name === 'genshin-impact' && (
+          <div className={wrapperClass}>
+            <label htmlFor="server" className={labelClass}>
+              سيرفر الحساب <span className="text-red-500">*</span>
             </label>
-            <input
+            <select
               name="server"
-              type="text"
-              placeholder="ادخل رقم السيرفر"
               value={details?.server || ''}
               onChange={(e) => onChange({ ...details, server: e.target.value })}
-              className="px-3 py-[11px] text-sm border-2 border-black rounded dark:bg-zinc-700 dark:text-white w-[240px] focus:outline-none"
-            />
+              className={inputClass}
+            >
+              <option value="">اختر السيرفر</option>
+              <option value="asia">آسيا</option>
+              <option value="america">أمريكا</option>
+              <option value="europe">أوروبا</option>
+            </select>
           </div>
         )}
+      {/* حقل ID */}
+      <div className={wrapperClass}>
+        <label htmlFor="id" className={labelClass}>
+          معرف الـ ID <span className="text-red-500">*</span>
+        </label>
+        <input
+          name="id"
+          type="text"
+          placeholder="ادخل الـ ID الخاص باللاعب"
+          value={details?.id || ''}
+          onChange={(e) => onChange({ ...details, id: e.target.value })}
+          className={inputClass}
+        />
+      </div>
+
+      {/* حقل سيرفر ID إذا كانت اللعبة mobile-legends */}
+      {name === 'mobile-legends' && (
+        <div className={wrapperClass}>
+          <label htmlFor="server" className={labelClass}>
+            سيرفر ID <span className="text-red-500">*</span>
+          </label>
+          <input
+            name="server"
+            type="text"
+            placeholder="ادخل رقم السيرفر"
+            value={details?.server || ''}
+            onChange={(e) => onChange({ ...details, server: e.target.value })}
+            className={inputClass}
+          />
+        </div>
+      )}
+
 
       {/* حقل رقم الواتساب */}
-      <div className="flex flex-col min-w-[240px] mb-5 m-auto">
-        <label
-          htmlFor="whatsapp"
-          className="text-[0.95rem] font-bold relative top-2 bg-gray-50 dark:bg-transparent px-1 ml-2 w-fit dark:text-white"
-        >
-          رقم الواتساب <span className='text-red-600 text-xl'>*</span>
+      <div className={wrapperClass}>
+        <label htmlFor="whatsapp" className={labelClass}>
+          رقم الواتساب <span className="text-red-500">*</span>
         </label>
         <input
           name="whatsapp"
           type="number"
-          placeholder="ادخل رقم واتساب (..249)"
+          placeholder="ادخل رقم واتساب (مثل: 249...)"
           value={details?.whatsapp || ''}
           onChange={(e) => onChange({ ...details, whatsapp: e.target.value })}
-          className="px-3 py-[11px] text-sm border-2 border-black rounded dark:bg-zinc-700 dark:text-white w-[240px] focus:outline-none"
+          className={inputClass}
         />
       </div>
-
     </div>
   );
 };

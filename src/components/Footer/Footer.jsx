@@ -15,7 +15,7 @@ const Footer = () => {
             والبطاقات الرقمية زي شدات ببجي، جواهر فري فاير، وبطاقات جوجل بلاي.
           </p>
           <p className="mt-3 text-gray-100">
-            عندنا طرق دفع مريحة زي بنكك، ماي كاشي، وPayPal للمشترين من الخارج.
+            عندنا طرق دفع مريحة زي بنكك، ماي كاشي، و فوري.
             بنوفر دعم فوري، ونظام تذاكر للمشاركة في البطولات والفوز بجوايز ضخمة.
           </p>
         </div>
@@ -66,7 +66,7 @@ const Footer = () => {
 
       {/* خط فاصل + حقوق النشر */}
       <div className="mt-12 border-t border-gray-700 pt-5 text-center text-sm text-gray-400">
-        © {new Date().getFullYear()} Rebeat Store - جميع الحقوق محفوظة | متجر شحن ألعاب وبطاقات رقمية
+        © {new Date().getFullYear()} Rebeat Store - جميع الحقوق محفوظة | ريبيت استور
       </div>
     </footer>
   );

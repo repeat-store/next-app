@@ -1,53 +1,104 @@
+/* الأساس */
 .home-card {
-    width: 240px;
-    height: 50px;
-     position: relative;
-    display: flex;
-    place-content: center;
-    place-items: center;
-    overflow: hidden;
-    border-radius: 20px;
+  width: 240px;
+  height: 50px;
+  position: relative;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 16px auto;
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  transition: transform 0.3s ease;
+}
+
+.home-card:hover {
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-
-  
-
-  .home-card h2 {
-    z-index: 1;
-     font-size: 2em;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .home-card::before {
-    content: '';
-    position: absolute;
-    width: 860%;
-    background-image: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
-    height: 130%;
-    animation: rotBGimg 3s linear infinite;
-   }
+.home-card h2 {
+  z-index: 1;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #1e293b; /* slate-800 للـ Light Mode */
+  transition: color 0.3s ease;
+  /* text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); */
+   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
 
-  @keyframes rotBGimg {
-    from {
-      transform: rotate(0deg);
-    }
+html.dark .home-card h2 {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
 
-    to {
-      transform: rotate(360deg);
-    }
+/* خلفية داخلية تتغير حسب الثيم */
+.home-card::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 15px;
+  z-index: 0;
+  /* background: #ffffff; */
+}
+
+html.dark .home-card::after {
+  background: #0f172a; /* slate-900 تقريبًا */
+}
+
+/* خلفية دوّارة خارجية */
+.home-card::before {
+  content: '';
+  position: absolute;
+  width: 860%;
+  height: 130%;
+  animation: rotBGimg 3s linear infinite;
+}
+
+/* أنيميشن الدوران */
+@keyframes rotBGimg {
+  from {
+    transform: rotate(0deg);
   }
-
-  .home-card::after {
-    content: '';
-    position: absolute;
-  
-    inset: 2px;
-    border-radius: 15px;
-}  
-
- html.dark .home-card::after{
-    background: #07182E;
+  to {
+    transform: rotate(360deg);
   }
+}
 
-   .home-card:hover:before {
-    background-image: linear-gradient(180deg, rgb(81, 255, 0), purple);
-    animation: rotBGimg 3.5s linear infinite;
-  } 
+/* ========== الأنماط الثلاثة ========== */
+
+/* 1. 🔥 Fire Style */
+.home-card.fire::before {
+  background-image: linear-gradient(180deg, #ff6a00, #ff0000);
+}
+.home-card.fire:hover::before {
+  background-image: linear-gradient(180deg, #ff0000, #ff6a00);
+}
+
+/* 2. 🌌 Cosmic Style */
+.home-card.cosmic::before {
+  background-image: linear-gradient(180deg, #5f0fff, #00d4ff);
+}
+.home-card.cosmic:hover::before {
+  background-image: linear-gradient(180deg, #00d4ff, #5f0fff);
+}
+
+/* 3. ⚡ Neon Green Style */
+.home-card.neon::before {
+  background-image: linear-gradient(180deg, #39ff14, #00ffe7);
+}
+.home-card.neon:hover::before {
+  background-image: linear-gradient(180deg, #00ffe7, #39ff14);
+}
