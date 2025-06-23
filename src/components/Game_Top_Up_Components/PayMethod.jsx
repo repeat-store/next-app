@@ -10,7 +10,7 @@ const PayMethod = ({ onSelect, selected }) => {
     <div className="mt-4 flex justify-between items-center text-center select-none px-2">
       {[
         { name: 'bankak', label: 'بنكك', img: '/images/bank/bankak.png' },
-        { name: 'mycashey', label: 'ماي كاشي', img: '/images/bank/Mycashey.png' },
+        { name: 'mycashe', label: 'ماي كاشي', img: '/images/bank/Mycashey.png' },
         { name: 'forey', label: 'فوري', img: '/images/bank/forey.png' },
       ].map((method) => (
         <label key={method.name} className="relative cursor-pointer">
