@@ -1,8 +1,6 @@
-import { getServerSideSitemap } from 'next-sitemap';
-import { NextResponse } from 'next/server';
+// هذا الملف لازم يكون: src/app/server-sitemap.xml/route.js
 
 export async function GET() {
-  // روابط تكتبها يدويًا
   const links = [
     'https://repeat-store.com/game/id/pubg-mobile',
     'https://repeat-store.com/game/id/free',
@@ -30,17 +28,24 @@ export async function GET() {
     'https://repeat-store.com/card/roblox',
   ];
 
-  const fields = links.map((url) => ({
-    loc: url,
-    lastmod: new Date().toISOString(),
-    changefreq: 'weekly',
-    priority: 0.7,
-  }));
+  const urls = links.map(
+    (url) => `
+      <url>
+        <loc>${url}</loc>
+        <lastmod>${new Date().toISOString()}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+      </url>`
+  ).join('');
 
-  const sitemap = await getServerSideSitemap(fields);
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  ${urls}
+</urlset>`;
 
-  return new NextResponse(sitemap.body, {
-    status: 200,
+  return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml',
     },

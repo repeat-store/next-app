@@ -1,4 +1,3 @@
-# *
 User-agent: *
 Disallow: /auth
 Disallow: /admin
@@ -6,12 +5,7 @@ Disallow: /pay_page
 Disallow: /my_orders
 Disallow: /my_profile
 
-# *
-User-agent: *
 Allow: /
 
-# Host
 Host: https://repeat-store.com
-
-# Sitemaps
 Sitemap: https://repeat-store.com/sitemap.xml
