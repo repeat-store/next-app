@@ -121,7 +121,7 @@ export default function DashboardPage() {
             ))}
           </ul>
         ) : (
-          <p className="text-gray-500">لا توجد حسابات بنكية</p>
+          <p className="text-gray-500">لا توجد حسابات بنكية !</p>
         )}
       </div>
     </div>
