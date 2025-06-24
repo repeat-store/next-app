@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import React from 'react'
 import Header from '../components/Header/Header'
 import './home.css';
@@ -45,6 +46,43 @@ const giftCards = [
   { name: 'shahid', image: '/images/home/card/shahid.jpeg' }, 
   { name: 'roblox', image: '/images/home/card/roblox.png' },
 ];
+
+export const  metadata = {
+  title: 'متجر ريبيت استور',
+  description:
+    'متجر ريبيت استور: متجر سوداني يوفر خدمة شحن مختلف الالعاب الالكترونية والبطاقات الرقمية باسعار منافسة وكمان بنوفر رومات ومسابقات يمكن من خلالها الفوز بشدات مجانا',
+  metadataBase: new URL('https://repeat-store.com'),
+
+  openGraph: {
+    title: 'متجر ريبيت استور',
+    description:
+      'متجر ريبيت استور: متجر سوداني يوفر خدمة شحن مختلف الالعاب الالكترونية والبطاقات الرقمية باسعار منافسة وكمان بنوفر رومات ومسابقات يمكن من خلالها الفوز بشدات مجانا',
+    url: 'https://repeat-store.com',
+    siteName: 'Repeat Store',
+    images: [
+      {
+        url: 'https://repeat-store.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Repeat Store',
+      },
+    ],
+    locale: 'ar_SD',
+    type: 'website',
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+  },
+
+  icons: {
+    icon: '/r-s.png',
+  },
+
+  other: {
+    facebook: 'https://www.facebook.com/profile.php?id=61576000674601',
+  },
+};
 
 
 export default function Home() {
