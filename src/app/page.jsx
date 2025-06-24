@@ -9,7 +9,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import '../components/Home/TitleCard.css';
 import PWAInstallPrompt from "@/components/PWAInstaller";
-import ImageSlider from "@/components/slider";
+// import ImageSlider from "@/components/slider";
 
 config.autoAddCss = false;
 
@@ -56,10 +56,8 @@ export default function Home() {
                   <PWAInstallPrompt/>
         <div className="box">
 
-          {/* <img src="/images/CY6cY9DlQtvjxGSV5zcp4hVIFZbv1jnQr1qtguM8.png" alt="no" /> */}
-          <CreativeSlider/>
-                    {/* <ImageSlider/> */}
-
+           <CreativeSlider/>
+ 
         </div>
 
          
@@ -83,7 +81,7 @@ export default function Home() {
         <div className="sections grid  grid-cols-2 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 ">
           {gamesbyAcount.map(game => (
             <Link key={game.name} href={`/game/acount/${game.name}`}>
-              <img src={game.image} alt={game.name} className='rounded-3xl'/>
+              <img src={game.image} alt={`${game.name} Baraer`} className='rounded-3xl'/>
             </Link>
           ))}
         </div>

@@ -1,42 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
-import { API_BASE_URL } from "../lib/domen";
 
-
-export default function SectionPage({ name }) {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [sectionName, setSectionName] = useState('');
-  
-
+export default function SectionPage({ name, products, sectionName }) {
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/game?name=${name}`);
-        if (!res.ok) throw new Error('فشل في تحميل المنتجات');
-        const data = await res.json();
-
-        setProducts(data.products);
-        setSectionName(data.nameAR);
-      } catch (error) {
-        console.error('فشل في جلب البيانات:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (name) fetchProducts();
-  }, [name]);
-
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-screen text-2xl text-gray-600 font-semibold animate-pulse">
-        جاري تحميل المنتجات...
-      </div>
-    );
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen px-4 py-10 mt-10 bg-gray-100 dark:bg-gray-900 transition-colors duration-700">
@@ -47,14 +18,9 @@ export default function SectionPage({ name }) {
       <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
         {products.map((product, index) => {
           const imageUrl = `/images/acount/${name}/${product.coin}.png`;
-         const whatsappMessage = `https://wa.me/966575248673?text=${encodeURIComponent(
-          `مرحبًا،\n\n` +
-          `أرغب في شراء المنتج التالي:\n` +
-          `🎮 القسم: ${sectionName}\n` +
-          `📦 القيمة:  ${product.value} \n` +
-          `💰 السعر: ${product.price} جنيه\n\n` 
-        
-        )}`;
+          const whatsappMessage = `https://wa.me/966575248673?text=${encodeURIComponent(
+            `مرحبًا،\n\nأرغب في شراء المنتج التالي:\n🎮 القسم: ${sectionName}\n📦 القيمة:  ${product.value} \n💰 السعر: ${product.price} جنيه\n\n`
+          )}`;
 
           return (
             <div
@@ -71,11 +37,8 @@ export default function SectionPage({ name }) {
                 }}
               />
               <div>
-                {/* <h2 className="text-lg font-bold text-gray-700 dark:text-white"> */}
-                  {/* {sectionName} */}
-                {/* </h2> */}
-                <h2 className="text-gray-600 dark:text-gray-300  " dir='rtl'>{product.value}</h2>
-                <p className="text-green-600 dark:text-green-400 font-semibold mb-3" dir='ltr'>
+                <h2 className="text-gray-600 dark:text-gray-300" dir="rtl">{product.value}</h2>
+                <p className="text-green-600 dark:text-green-400 font-semibold mb-3" dir="ltr">
                   السعر: {product.price.toLocaleString('en-US')} جنيه
                 </p>
               </div>
@@ -85,7 +48,7 @@ export default function SectionPage({ name }) {
                 className="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium"
               >
                 <FaWhatsapp className="text-lg" />
-               اشحن الان
+                اشحن الآن
               </Link>
             </div>
           );
