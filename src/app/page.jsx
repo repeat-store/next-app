@@ -90,9 +90,7 @@ export const  metadata = {
     card: 'summary_large_image',
   },
 
-  icons: {
-    icon: '/favicon.ico',
-  },
+  
 
   other: {
     facebook: 'https://www.facebook.com/profile.php?id=61576000674601',
