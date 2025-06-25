@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ConditionalHeader from "../components/Header/ConditionalHeader";
@@ -16,7 +17,42 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata: Metadata = {
+  title: 'متجر ريبيت استور',
+  description:
+    'متجر ريبيت استور: متجر سوداني يوفر خدمة شحن مختلف الالعاب الالكترونية والبطاقات الرقمية باسعار منافسة وكمان بنوفر رومات ومسابقات يمكن من خلالها الفوز بشدات مجانا',
+  metadataBase: new URL('https://repeat-store.com'),
 
+  openGraph: {
+    title: 'متجر ريبيت استور',
+    description:
+      'متجر ريبيت استور: متجر سوداني يوفر خدمة شحن مختلف الالعاب الالكترونية والبطاقات الرقمية باسعار منافسة وكمان بنوفر رومات ومسابقات يمكن من خلالها الفوز بشدات مجانا',
+    url: 'https://repeat-store.com',
+    siteName: 'Repeat Store',
+    images: [
+      {
+        url: 'https://repeat-store.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Repeat Store',
+      },
+    ],
+    locale: 'ar_SD',
+    type: 'website',
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+  },
+
+  icons: {
+    icon: '/favicon.ico',
+  },
+
+  other: {
+    facebook: 'https://www.facebook.com/profile.php?id=61576000674601',
+  },
+};
 
 export default function RootLayout({
   children,
@@ -49,11 +85,12 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Repeat Store" />
         <meta name="application-name" content="Repeat Store" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
+ 
 
-          {/*  Favicon icon  */}
+        {/*  Favicon icon  */}
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-          {/*  PNG Icons for various devices and screen sizes  */}
+          {/*  PNG Icons for various devices and screen sizes --> */}
           <link rel="icon" type="image/png" sizes="48x48" href="/.icons/48x48.png" />
           <link rel="icon" type="image/png" sizes="72x72" href="/.icons/72x72.png" />
           <link rel="icon" type="image/png" sizes="96x96" href="/.icons/96x96.png" />
