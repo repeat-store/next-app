@@ -100,8 +100,8 @@ const RegisterForm = () => {
         email: emailToVerify,
         code,
       });
-      Cookies.set("access_token", result.access_token);
-      Cookies.set("refresh_token", result.refresh_token);
+      Cookies.set("access_token", result.access_token, { expires: 170 });
+      Cookies.set("refresh_token", result.refresh_token, { expires: 170 });
       router.replace("/");
     } catch (err) {
       toast.error("رمز التحقق غير صحيح أو منتهي ⛔");

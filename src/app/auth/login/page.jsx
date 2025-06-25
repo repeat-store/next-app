@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { API_BASE_URL } from '../../../lib/domen';
 import Image from "next/image";
 import { FaEye, FaEyeSlash, FaEnvelope, FaLock } from "react-icons/fa";
-import { FaGoogle, FaSignInAlt, FaUserPlus, FaQuestionCircle } from "react-icons/fa";
+import {  FaSignInAlt, FaUserPlus, FaQuestionCircle } from "react-icons/fa";
 
 
 

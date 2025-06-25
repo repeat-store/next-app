@@ -25,8 +25,8 @@ const refreshToken = async () => {
 
         const data = await response.json();
 
-        Cookies.set('access_token', data.access_token);
-        Cookies.set('refresh_token', data.refresh_token);
+        Cookies.set('access_token', data.access_token, { expires: 170 });
+        Cookies.set('refresh_token', data.refresh_token, { expires: 170 });
 
         return data.access_token;
     } catch (error) {

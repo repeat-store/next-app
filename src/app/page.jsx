@@ -91,7 +91,7 @@ export const  metadata = {
   },
 
   icons: {
-    icon: '/r-s.png',
+    icon: '/favicon.ico',
   },
 
   other: {

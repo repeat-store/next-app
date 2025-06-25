@@ -48,8 +48,8 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="Repeat Store" />
         <meta name="application-name" content="Repeat Store" />
-        <link rel="apple-touch-icon" href="/r-s.png" />
-        <link rel="icon" href="/r-s.png" type="image/png" /> 
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </head>
 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
