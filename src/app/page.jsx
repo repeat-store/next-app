@@ -7,6 +7,8 @@ import Footer from '../components/Footer/Footer';
 import Link from 'next/link';
 import CreativeSlider from '@/components/CreativeSlider';
 import { config } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFire} from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import '../components/Home/TitleCard.css';
 import PWAInstallPrompt from "@/components/PWAInstaller";
@@ -21,6 +23,10 @@ const games = [
   { name: 'genshin-impact', image: '/images/home/id/genshin-impact.webp' } ,
   { name: 'mobile-legends', image: '/images/home/id/mobile-legends.webp' } ,
   { name: 'pubg-lite', image: '/images/home/id/pubg-lite.webp' } ,
+  { name: 'blood-strike', image: '/images/home/id/blood-strike.png' } ,
+  { name: 'honor-of-kings', image: '/images/home/id/honor-of-kings.png' } ,
+  { name: 'whiteout-survival', image: '/images/home/id/whiteout-survival.png' } ,
+  { name: 'stumble-guys', image: '/images/home/id/stumble-guys.png' } ,
 ]
 
 const gamesbyAcount = [
@@ -112,9 +118,12 @@ export default function Home() {
         </div>
 
          
-          <div className="line home-card fire after:bg-gray-200 text-indigo-900 dark:text-gray-400">
-            <h2> 🔥 ID الشحن عبر ال </h2>
-          </div>
+         <div className="line home-card fire after:bg-gray-200 text-indigo-900 dark:text-gray-400">
+          <h2>
+            <FontAwesomeIcon icon={faFire} beat className="me-2 text-red-500" />
+            ID الشحن عبر ال
+          </h2>
+        </div>
          
 
         <div className="sections grid grid-cols-2 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
