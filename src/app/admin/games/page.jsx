@@ -54,7 +54,7 @@ export default function GamesPage() {
     }
 
     try {
-      const res = await fetch(`${API_BASE_URL}/api/update-prices`, {
+      const res = await fetch(`${API_BASE_URL}/api/admin/update-prices`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
