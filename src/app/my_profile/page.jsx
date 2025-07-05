@@ -25,6 +25,7 @@ const ProfileCard = () => {
     joinedAt: "",
     tickets: 0,
     tournaments: 0,
+    public_id: "",
     wins: 0,
     image: ""
   });
@@ -54,6 +55,7 @@ const ProfileCard = () => {
           tickets: data.tickets || 0,
           tournaments: data.tournaments || 0,
           wins: data.wins || 0,
+          public_id: data.public_id || "",
           image: data.image || "",
         });
       } catch (error) {
@@ -208,6 +210,9 @@ const ProfileCard = () => {
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
             {profile.name}
           </h2>
+          <p className="text-xl text-gray-500 dark:text-gray-400 mb-14">
+           : معرف المستخدم {profile.public_id}
+          </p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-14">
              عضو منذ {profile.joinedAt}
           </p>
