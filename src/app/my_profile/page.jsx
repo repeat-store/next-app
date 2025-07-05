@@ -210,8 +210,8 @@ const ProfileCard = () => {
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
             {profile.name}
           </h2>
-          <p className="text-xl text-gray-500 dark:text-gray-400 mb-14">
-           : معرف المستخدم {profile.public_id}
+          <p className="text-xl text-gray-700 dark:text-gray-200 mb-4">
+            معرف المستخدم : {profile.public_id}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-14">
              عضو منذ {profile.joinedAt}
